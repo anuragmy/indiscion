@@ -1,28 +1,37 @@
 class Indiscion extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleDeleteOption = this.handleDeleteOption.bind(this);
+		this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
 		this.handlePick = this.handlePick.bind(this);
 		this.handleAddOption = this.handleAddOption.bind(this);
+		this.handleDeleteOption = this.handleDeleteOption.bind(this);
+
 		this.state = {
-			options: [ 'one', 'two', 'three', 'four' ]
+			options: props.options
 		};
 	}
-	handleDeleteOption() {
+	handleDeleteOptions() {
 		this.setState({
 			options: []
+		});
+	}
+	handleDeleteOption(optionToRemove) {
+		console.log('hdo', optionToRemove);
+		this.setState({
+			options: this.state.options.filter((option) => optionToRemove !== option)
 		});
 	}
 
 	handlePick() {
 		console.log('handlepick called');
-		let number = Math.ceil(Math.random() * this.state.options.length);
-		if (number === 5) number = 4;
+
+		let number = Math.round(Math.random() * this.state.options.length);
 		const choise = this.state.options[number];
 		alert(choise);
 	}
 
 	handleAddOption(option) {
+		if (!option) return 'Enter valid value';
 		if (this.state.options.indexOf(option) > -1) return alert('Option Already Exists');
 		this.setState({
 			options: this.state.options.concat(option)
@@ -36,79 +45,103 @@ class Indiscion extends React.Component {
 
 		return (
 			<div>
-				<Header title={title} subTitle={subTitle} />
-				<Options options={this.state.options} handleDeleteOption={this.handleDeleteOption} />
+				<Header />
 				<Actions hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
 				<AddOption handleAddOption={this.handleAddOption} />
+				<Options
+					handleDeleteOption={this.handleDeleteOption}
+					options={this.state.options}
+					handleDeleteOptions={this.handleDeleteOptions}
+				/>
 			</div>
 		);
 	}
 }
 
-class Header extends React.Component {
-	render() {
-		return (
-			<div>
-				<h1 className="text-primary">{this.props.title}</h1>
-				<h2 className="text-default">{this.props.subTitle}</h2>
-			</div>
-		);
-	}
-}
+Indiscion.defaultProps = {
+	options: [ 'one', 'two', 'three', 'four' ]
+};
 
-class Actions extends React.Component {
-	render() {
-		return (
-			<div>
-				<input
-					disabled={!this.props.hasOptions}
-					type="button"
-					onClick={this.props.handlePick}
-					value="What should I do?"
-				/>;
-			</div>
-		);
-	}
-}
+const Header = (props) => {
+	return (
+		<div>
+			<h1 className="text-primary">{props.title}</h1>
+			{props.subTitle && <h2 className="text-default">{props.subTitle}</h2>}
+		</div>
+	);
+};
 
-class Options extends React.Component {
-	render() {
-		return (
-			<div>
-				<button onClick={this.props.handleDeleteOption}>Remove All</button>
-				{this.props.options.map((option) => <Option key={option} optionText={option} />)}
-			</div>
-		);
-	}
-}
+Header.defaultProps = {
+	title: 'Indiscion App!',
+	subTitle: 'Put your life in the hands of the computer'
+};
 
-class Option extends React.Component {
-	render() {
-		const options = this.props.optionText;
-		return <p>{options}</p>;
-	}
-}
+const Actions = (props) => {
+	return (
+		<div>
+			<input disabled={!props.hasOptions} type="button" onClick={props.handlePick} value="What should I do?" />;
+		</div>
+	);
+};
+
+const Options = (props) => {
+	return (
+		<div>
+			<button onClick={props.handleDeleteOptions}>Remove All</button>
+			{props.options.map((option) => (
+				<Option key={option} optionText={option} handleDeleteOption={props.handleDeleteOption} />
+			))}
+		</div>
+	);
+};
+
+const Option = (props) => {
+	//console.log(props);
+	const options = props.optionText;
+	return (
+		<div>
+			<p>{options}</p>
+			<button
+				onClick={(e) => {
+					props.handleDeleteOption(options);
+				}}
+			>
+				Remove
+			</button>
+		</div>
+	);
+};
 
 class AddOption extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleAddOption = this.handleAddOption.bind(this);
+		this.state = {
+			error: undefined
+		};
 	}
 
 	handleAddOption(e) {
 		e.preventDefault();
 		const option = e.target.elements.option.value.trim();
-		if (option) this.props.handleAddOption(option);
+		e.target.elements.option.value = '';
+		const error = this.props.handleAddOption(option);
+		this.setState({ error });
 	}
 
 	render() {
 		return (
-			<form onSubmit={this.handleAddOption}>
-				<input type="text" name="option" />
-				<button type="submit">Add Option</button>
-			</form>
+			<div>
+				<form onSubmit={this.handleAddOption}>
+					<input type="text" name="option" />
+					<button type="submit">Add Option</button>
+				</form>
+			</div>
 		);
 	}
 }
 
-ReactDOM.render(<Indiscion className="text-center" />, document.getElementById('root'));
+ReactDOM.render(
+	<Indiscion options={[ 'devil', 'negi' ]} className="text-center" name="anurag" age="34" />,
+	document.getElementById('root')
+);
