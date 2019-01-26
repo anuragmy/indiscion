@@ -16,10 +16,12 @@ var Indiscion = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (Indiscion.__proto__ || Object.getPrototypeOf(Indiscion)).call(this, props));
 
+		_this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
+		_this.handlePick = _this.handlePick.bind(_this);
+		_this.handleAddOption = _this.handleAddOption.bind(_this);
 		_this.state = {
 			options: ['one', 'two', 'three', 'four']
 		};
-		_this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
 		return _this;
 	}
 
@@ -28,6 +30,23 @@ var Indiscion = function (_React$Component) {
 		value: function handleDeleteOption() {
 			this.setState({
 				options: []
+			});
+		}
+	}, {
+		key: 'handlePick',
+		value: function handlePick() {
+			console.log('handlepick called');
+			var number = Math.ceil(Math.random() * this.state.options.length);
+			if (number === 5) number = 4;
+			var choise = this.state.options[number];
+			alert(choise);
+		}
+	}, {
+		key: 'handleAddOption',
+		value: function handleAddOption(option) {
+			if (this.state.options.indexOf(option) > -1) return alert('Option Already Exists');
+			this.setState({
+				options: this.state.options.concat(option)
 			});
 		}
 	}, {
@@ -42,8 +61,8 @@ var Indiscion = function (_React$Component) {
 				null,
 				React.createElement(Header, { title: title, subTitle: subTitle }),
 				React.createElement(Options, { options: this.state.options, handleDeleteOption: this.handleDeleteOption }),
-				React.createElement(Actions, { hasOptions: this.state.options.length > 0 }),
-				React.createElement(AddOption, null)
+				React.createElement(Actions, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
+				React.createElement(AddOption, { handleAddOption: this.handleAddOption })
 			);
 		}
 	}]);
@@ -93,11 +112,6 @@ var Actions = function (_React$Component3) {
 	}
 
 	_createClass(Actions, [{
-		key: 'handlePick',
-		value: function handlePick() {
-			alert('hap called');
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			return React.createElement(
@@ -106,7 +120,7 @@ var Actions = function (_React$Component3) {
 				React.createElement('input', {
 					disabled: !this.props.hasOptions,
 					type: 'button',
-					onClick: this.handlePick,
+					onClick: this.props.handlePick,
 					value: 'What should I do?'
 				}),
 				';'
@@ -174,10 +188,13 @@ var Option = function (_React$Component5) {
 var AddOption = function (_React$Component6) {
 	_inherits(AddOption, _React$Component6);
 
-	function AddOption() {
+	function AddOption(props) {
 		_classCallCheck(this, AddOption);
 
-		return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
+		var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+		_this6.handleAddOption = _this6.handleAddOption.bind(_this6);
+		return _this6;
 	}
 
 	_createClass(AddOption, [{
@@ -185,8 +202,7 @@ var AddOption = function (_React$Component6) {
 		value: function handleAddOption(e) {
 			e.preventDefault();
 			var option = e.target.elements.option.value.trim();
-
-			if (option) alert(option);
+			if (option) this.props.handleAddOption(option);
 		}
 	}, {
 		key: 'render',
@@ -206,14 +222,5 @@ var AddOption = function (_React$Component6) {
 
 	return AddOption;
 }(React.Component);
-
-var obj = {
-	name: 'anurag',
-	getName: function getName() {
-		return this.name;
-	}
-};
-var gname = obj.getName;
-console.log(gname);
 
 ReactDOM.render(React.createElement(Indiscion, { className: 'text-center' }), document.getElementById('root'));

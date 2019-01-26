@@ -1,14 +1,31 @@
 class Indiscion extends React.Component {
 	constructor(props) {
 		super(props);
+		this.handleDeleteOption = this.handleDeleteOption.bind(this);
+		this.handlePick = this.handlePick.bind(this);
+		this.handleAddOption = this.handleAddOption.bind(this);
 		this.state = {
 			options: [ 'one', 'two', 'three', 'four' ]
 		};
-		this.handleDeleteOption = this.handleDeleteOption.bind(this);
 	}
 	handleDeleteOption() {
 		this.setState({
 			options: []
+		});
+	}
+
+	handlePick() {
+		console.log('handlepick called');
+		let number = Math.ceil(Math.random() * this.state.options.length);
+		if (number === 5) number = 4;
+		const choise = this.state.options[number];
+		alert(choise);
+	}
+
+	handleAddOption(option) {
+		if (this.state.options.indexOf(option) > -1) return alert('Option Already Exists');
+		this.setState({
+			options: this.state.options.concat(option)
 		});
 	}
 
@@ -21,8 +38,8 @@ class Indiscion extends React.Component {
 			<div>
 				<Header title={title} subTitle={subTitle} />
 				<Options options={this.state.options} handleDeleteOption={this.handleDeleteOption} />
-				<Actions hasOptions={this.state.options.length > 0} />
-				<AddOption />
+				<Actions hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
+				<AddOption handleAddOption={this.handleAddOption} />
 			</div>
 		);
 	}
@@ -40,17 +57,13 @@ class Header extends React.Component {
 }
 
 class Actions extends React.Component {
-	handlePick() {
-		alert('hap called');
-	}
-
 	render() {
 		return (
 			<div>
 				<input
 					disabled={!this.props.hasOptions}
 					type="button"
-					onClick={this.handlePick}
+					onClick={this.props.handlePick}
 					value="What should I do?"
 				/>;
 			</div>
@@ -77,11 +90,15 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleAddOption = this.handleAddOption.bind(this);
+	}
+
 	handleAddOption(e) {
 		e.preventDefault();
 		const option = e.target.elements.option.value.trim();
-
-		if (option) alert(option);
+		if (option) this.props.handleAddOption(option);
 	}
 
 	render() {
@@ -93,14 +110,5 @@ class AddOption extends React.Component {
 		);
 	}
 }
-
-const obj = {
-	name: 'anurag',
-	getName() {
-		return this.name;
-	}
-};
-const gname = obj.getName;
-console.log(gname);
 
 ReactDOM.render(<Indiscion className="text-center" />, document.getElementById('root'));
