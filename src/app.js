@@ -38,6 +38,22 @@ class Indiscion extends React.Component {
 		});
 	}
 
+	componentDidMount() {
+		try {
+			const json = JSON.parse(localStorage.getItem('options'));
+			if (json) this.setState({ options: json });
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	componentDidUpdate(prevSatate, nextState) {
+		if (prevSatate.options.length !== this.state.options.length) console.log('saving data');
+		const json = JSON.stringify(this.state.options);
+		localStorage.setItem('options', json);
+		console.log(localStorage.getItem('items'));
+	}
+
 	render() {
 		const title = 'Indiscion App';
 		const subTitle = 'Put your life in the hands of the computer';
@@ -87,6 +103,7 @@ const Actions = (props) => {
 const Options = (props) => {
 	return (
 		<div>
+			{props.options.length === 0 && <p>Please add items to get started!</p>}
 			<button onClick={props.handleDeleteOptions}>Remove All</button>
 			{props.options.map((option) => (
 				<Option key={option} optionText={option} handleDeleteOption={props.handleDeleteOption} />

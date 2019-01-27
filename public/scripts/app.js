@@ -63,6 +63,24 @@ var Indiscion = function (_React$Component) {
 			});
 		}
 	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			try {
+				var json = JSON.parse(localStorage.getItem('options'));
+				if (json) this.setState({ options: json });
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevSatate, nextState) {
+			if (prevSatate.options.length !== this.state.options.length) console.log('saving data');
+			var json = JSON.stringify(this.state.options);
+			localStorage.setItem('options', json);
+			console.log(localStorage.getItem('items'));
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var title = 'Indiscion App';
@@ -126,6 +144,11 @@ var Options = function Options(props) {
 	return React.createElement(
 		'div',
 		null,
+		props.options.length === 0 && React.createElement(
+			'p',
+			null,
+			'Please add items to get started!'
+		),
 		React.createElement(
 			'button',
 			{ onClick: props.handleDeleteOptions },
