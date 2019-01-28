@@ -22,7 +22,7 @@ var Indiscion = function (_React$Component) {
 		_this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
 
 		_this.state = {
-			options: props.options
+			options: []
 		};
 		return _this;
 	}
@@ -105,10 +105,6 @@ var Indiscion = function (_React$Component) {
 	return Indiscion;
 }(React.Component);
 
-Indiscion.defaultProps = {
-	options: ['one', 'two', 'three', 'four']
-};
-
 var Header = function Header(props) {
 	return React.createElement(
 		'div',
@@ -151,7 +147,7 @@ var Options = function Options(props) {
 		),
 		React.createElement(
 			'button',
-			{ onClick: props.handleDeleteOptions },
+			{ onClick: props.handleDeleteOptions, disabled: !props.options.length },
 			'Remove All'
 		),
 		props.options.map(function (option) {

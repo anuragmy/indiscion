@@ -7,7 +7,7 @@ class Indiscion extends React.Component {
 		this.handleDeleteOption = this.handleDeleteOption.bind(this);
 
 		this.state = {
-			options: props.options
+			options: []
 		};
 	}
 	handleDeleteOptions() {
@@ -74,10 +74,6 @@ class Indiscion extends React.Component {
 	}
 }
 
-Indiscion.defaultProps = {
-	options: [ 'one', 'two', 'three', 'four' ]
-};
-
 const Header = (props) => {
 	return (
 		<div>
@@ -104,7 +100,9 @@ const Options = (props) => {
 	return (
 		<div>
 			{props.options.length === 0 && <p>Please add items to get started!</p>}
-			<button onClick={props.handleDeleteOptions}>Remove All</button>
+			<button onClick={props.handleDeleteOptions} disabled={!props.options.length}>
+				Remove All
+			</button>
 			{props.options.map((option) => (
 				<Option key={option} optionText={option} handleDeleteOption={props.handleDeleteOption} />
 			))}
