@@ -1,6 +1,7 @@
 const Option = (props) => {
 	//console.log(props);
 	const options = props.optionText;
+	console.log('etsting');
 	return (
 		<div>
 			<p>{options}</p>

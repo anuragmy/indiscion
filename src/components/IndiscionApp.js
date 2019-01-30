@@ -5,60 +5,53 @@ import Actions from './Actions';
 import Options from './Options';
 
 export default class Indiscion extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-		this.handlePick = this.handlePick.bind(this);
-		this.handleAddOption = this.handleAddOption.bind(this);
-		this.handleDeleteOption = this.handleDeleteOption.bind(this);
-
-		this.state = {
-			options: []
-		};
-	}
-	handleDeleteOptions() {
+	state = {
+		options: [ 'negi', 'suraj' ]
+	};
+	handleDeleteOptions = () => {
 		this.setState({
 			options: []
 		});
-	}
-	handleDeleteOption(optionToRemove) {
+	};
+
+	handleDeleteOption = (optionToRemove) => {
 		console.log('hdo', optionToRemove);
 		this.setState({
 			options: this.state.options.filter((option) => optionToRemove !== option)
 		});
-	}
+	};
 
-	handlePick() {
+	handlePick = () => {
 		console.log('handlepick called');
 
 		let number = Math.round(Math.random() * this.state.options.length);
 		const choise = this.state.options[number];
 		alert(choise);
-	}
+	};
 
-	handleAddOption(option) {
+	handleAddOption = (option) => {
 		if (!option) return 'Enter valid value';
 		if (this.state.options.indexOf(option) > -1) return alert('Option Already Exists');
 		this.setState({
 			options: this.state.options.concat(option)
 		});
-	}
+	};
 
-	componentDidMount() {
+	componentDidMount = () => {
 		try {
 			const json = JSON.parse(localStorage.getItem('options'));
 			if (json) this.setState({ options: json });
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
-	componentDidUpdate(prevSatate, nextState) {
-		if (prevSatate.options.length !== this.state.options.length) console.log('saving data');
-		const json = JSON.stringify(this.state.options);
-		localStorage.setItem('options', json);
-		console.log(localStorage.getItem('items'));
-	}
+	// componentDidUpdate = (prevSatate, nextState) => {
+	// 	if (prevSatate.options.length !== this.state.options.length) console.log('saving data');
+	// 	const json = JSON.stringify(this.state.options);
+	// 	localStorage.setItem('options', json);
+	// 	console.log(localStorage.getItem('items'));
+	// };
 
 	render() {
 		const title = 'Indiscion App';
