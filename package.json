@@ -110,6 +110,7 @@
 		"process-nextick-args": "^2.0.0",
 		"proxy-middleware": "^0.15.0",
 		"range-parser": "^1.2.0",
+		"react-modal": "^3.8.1",
 		"readable-stream": "^2.3.6",
 		"readdirp": "^2.2.1",
 		"regex-not": "^1.0.2",

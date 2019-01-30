@@ -3,10 +3,12 @@ import Option from './Option';
 import Header from './Header';
 import Actions from './Actions';
 import Options from './Options';
+import OptionModal from './OptionModal';
 
 export default class Indiscion extends React.Component {
 	state = {
-		options: [ 'negi', 'suraj' ]
+		options: [ 'negi', 'suraj' ],
+		selectedOption: undefined
 	};
 	handleDeleteOptions = () => {
 		this.setState({
@@ -22,11 +24,13 @@ export default class Indiscion extends React.Component {
 	};
 
 	handlePick = () => {
-		console.log('handlepick called');
-
 		let number = Math.round(Math.random() * this.state.options.length);
 		const choise = this.state.options[number];
-		alert(choise);
+		this.setState({ selectedOption: choise });
+	};
+
+	handleClearSelectionOption = () => {
+		this.setState({ selectedOption: undefined });
 	};
 
 	handleAddOption = (option) => {
@@ -67,6 +71,10 @@ export default class Indiscion extends React.Component {
 					handleDeleteOption={this.handleDeleteOption}
 					options={this.state.options}
 					handleDeleteOptions={this.handleDeleteOptions}
+				/>
+				<OptionModal
+					selectedOption={this.state.selectedOption}
+					handleClearSelectionOption={this.handleClearSelectionOption}
 				/>
 			</div>
 		);
