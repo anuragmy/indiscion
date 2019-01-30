@@ -10,27 +10,13 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				use: 'babel-loader'
+				test: /\.js/,
+				use: 'babel-loader',
+				exclude: /node_modules/
 			}
 		]
 	}
-	// devServer: {
-	// 	contentBase: './public'
-	// }
-	// module: {
-	// 	rules: [
-	// 		{
-	// 			test: /\.(.js|.jsx)$/,
-	// 			loader: 'babel-loader',
-	// 			exclude: /node_modules/
-	// 		},
-	// 		{
-	// 			test: /\.(.js|.jsx)$/,
-	// 			loader: 'eslint-loader',
-	// 			exclude: /node_modules/
-	// 		}
-	// 	]
-	// },
+
 	// resolve: {
 	// 	extensions: [ '.js', '.jsx' ]
 	// }
