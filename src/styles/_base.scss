@@ -1,0 +1,10 @@
+@import './settings';
+body {
+	font-family: Helvetica, sans-serif;
+	background-color: $back-color;
+	font-size: $m-size;
+}
+
+html {
+	font-size: 62.5%;
+}

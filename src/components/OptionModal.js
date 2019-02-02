@@ -1,4 +1,5 @@
 import Modal from 'react-modal';
+import React from 'react';
 
 const OptionModal = (props) => {
 	console.log(props.selectedOption);

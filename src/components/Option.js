@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Option = (props) => {
 	//console.log(props);
 	const options = props.optionText;

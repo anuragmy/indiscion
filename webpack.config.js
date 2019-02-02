@@ -10,8 +10,13 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js/,
+				test: /\.js$/,
 				use: 'babel-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.(.s?css)$/,
+				use: [ 'style-loader', 'css-loader', 'sass-loader' ],
 				exclude: /node_modules/
 			}
 		]
@@ -20,8 +25,4 @@ module.exports = {
 	devServer: {
 		contentBase: path.join(__dirname, 'public')
 	}
-
-	// resolve: {
-	// 	extensions: [ '.js', '.jsx' ]
-	// }
 };

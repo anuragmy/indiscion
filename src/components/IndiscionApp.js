@@ -4,6 +4,7 @@ import Header from './Header';
 import Actions from './Actions';
 import Options from './Options';
 import OptionModal from './OptionModal';
+import React from 'react';
 
 export default class Indiscion extends React.Component {
 	state = {
@@ -65,17 +66,25 @@ export default class Indiscion extends React.Component {
 		return (
 			<div>
 				<Header />
-				<Actions hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
-				<AddOption handleAddOption={this.handleAddOption} />
-				<Options
-					handleDeleteOption={this.handleDeleteOption}
-					options={this.state.options}
-					handleDeleteOptions={this.handleDeleteOptions}
-				/>
-				<OptionModal
-					selectedOption={this.state.selectedOption}
-					handleClearSelectionOption={this.handleClearSelectionOption}
-				/>
+				<div className="container">
+					<Actions hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
+				</div>
+				<div className="container">
+					<AddOption handleAddOption={this.handleAddOption} />
+				</div>
+				<div className="container">
+					<Options
+						handleDeleteOption={this.handleDeleteOption}
+						options={this.state.options}
+						handleDeleteOptions={this.handleDeleteOptions}
+					/>
+				</div>
+				<div className="container">
+					<OptionModal
+						selectedOption={this.state.selectedOption}
+						handleClearSelectionOption={this.handleClearSelectionOption}
+					/>
+				</div>
 			</div>
 		);
 	}
