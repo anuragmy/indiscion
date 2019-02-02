@@ -3,7 +3,9 @@ import React from 'react';
 const Actions = (props) => {
 	return (
 		<div>
-			<input disabled={!props.hasOptions} type="button" onClick={props.handlePick} value="What should I do?" />;
+			<button disabled={!props.hasOptions} type="button" className="big-button" onClick={props.handlePick}>
+				What should I do?
+			</button>
 		</div>
 	);
 };

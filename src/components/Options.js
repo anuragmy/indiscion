@@ -5,7 +5,7 @@ const Options = (props) => {
 	return (
 		<div>
 			{props.options.length === 0 && <p>Please add items to get started!</p>}
-			<button onClick={props.handleDeleteOptions} disabled={!props.options.length}>
+			<button onClick={props.handleDeleteOptions} className="button--link" disabled={!props.options.length}>
 				Remove All
 			</button>
 			{props.options.map((option) => (
