@@ -10,9 +10,10 @@ const OptionModal = (props) => {
 				onRequestClose={props.handleClearSelectionOption}
 				ariaHideApp={false}
 				contentLabel="Select Options"
+				className="modal"
 			>
-				<h3>Select Options</h3>
-				{props.selectedOption && <p>{props.selectedOption}</p>}
+				<h3 className="modal__title">Select Option</h3>
+				{props.selectedOption && <p className="modal__body">{props.selectedOption}</p>}
 				<button onClick={props.handleClearSelectionOption}>Okay</button>
 			</Modal>
 		</div>

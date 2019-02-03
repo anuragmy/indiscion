@@ -25,7 +25,7 @@ export default class Indiscion extends React.Component {
 	};
 
 	handlePick = () => {
-		let number = Math.round(Math.random() * this.state.options.length);
+		let number = Math.floor(Math.random() * this.state.options.length);
 		const choise = this.state.options[number];
 		this.setState({ selectedOption: choise });
 	};
