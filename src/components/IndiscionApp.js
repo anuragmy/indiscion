@@ -61,7 +61,6 @@ export default class Indiscion extends React.Component {
 	render() {
 		const title = 'Indiscion App';
 		const subTitle = 'Put your life in the hands of the computer';
-		console.log(this.state.options.length);
 
 		return (
 			<div>
@@ -69,15 +68,18 @@ export default class Indiscion extends React.Component {
 				<div className="container">
 					<Actions hasOptions={this.state.options.length > 0} handlePick={this.handlePick} />
 				</div>
-				<div className="container">
-					<AddOption handleAddOption={this.handleAddOption} />
-				</div>
-				<div className="container">
-					<Options
-						handleDeleteOption={this.handleDeleteOption}
-						options={this.state.options}
-						handleDeleteOptions={this.handleDeleteOptions}
-					/>
+
+				<div className=" container widget">
+					<div className="container">
+						<Options
+							handleDeleteOption={this.handleDeleteOption}
+							options={this.state.options}
+							handleDeleteOptions={this.handleDeleteOptions}
+						/>
+					</div>
+					<div className="container">
+						<AddOption handleAddOption={this.handleAddOption} />
+					</div>
 				</div>
 				<div className="container">
 					<OptionModal

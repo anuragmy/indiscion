@@ -16,10 +16,11 @@
 button {
 	background-color: $purple;
 	border: none;
-	border-bottom: .6rem solid darken($purple, 10%);
+	border-bottom: .3rem solid darken($purple, 10%);
 	font-weight: bold;
 	font-size: 1.2rem;
 	padding: 1.2rem;
+	color: white;
 }
 
 .button--link {
